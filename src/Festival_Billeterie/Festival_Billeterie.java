@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package javaapplication1;
+package Festival_Billeterie;
 
 /**
  *
  * @author aroblin
  */
-public class JavaApplication1 {
+public class Festival_Billeterie {
 
     /**
      * @param args the command line arguments
