@@ -12,7 +12,9 @@ import java.awt.event.WindowListener;
 import java.sql.SQLException;
 import java.util.List;
 import javax.swing.JOptionPane;
+import modele.dao.DaoRepresentation;
 import vue.VueBilleterie;
+import modele.metier.*;
 
 /**
  *
@@ -25,16 +27,14 @@ public class CtrlBilleterie implements WindowListener,ActionListener{
         this.vue = vue;
         // le contrôleur écoute la vue
         this.vue.addWindowListener(this);
-        // préparer l'état iniitial de la vue
-       // getVueA().getjButtonRechercher().addActionListener(this);
-        //getVueA().getjTextFieldVille().addActionListener(this);
-       // List<Billeterie> lesBillets = null;
-        //try {
-         //   lesAdresses = DaoAdresse.selectAll();
-        //} catch (SQLException ex) {
-        //    JOptionPane.showMessageDialog(getVueA(), "CtrlLesAdresses - échec de sélection des adresses");
-        //}
-       // afficherLesAdresses(lesAdresses);
+         //préparer l'état iniitial de la vue
+        List<Representation> lesRepresentation = null;
+        try {
+            lesRepresentation = DaoRepresentation.selectAll();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(getVueA(), "CtrlLesAdresses - échec de sélection des adresses");
+        }
+        
     }
 
      // ACCESSEURS et MUTATEURS
