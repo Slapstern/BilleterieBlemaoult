@@ -58,9 +58,9 @@ public class DaoLieu {
             String cdp = rs.getString("CDP");
             String ville = rs.getString("VILLE");
             unLieu = new Lieu(id, rue, cdp, ville);
-            lesLieux.add(unLieu);
+            LesLieux.add(unLieu);
         }
-        return lesLieux;
+        return LesLieux;
     }
     
         /**
@@ -86,9 +86,9 @@ public class DaoLieu {
             String cdp = rs.getString("CDP");
             String ville = rs.getString("VILLE");
             unLieu = new Lieu(id, rue, cdp, ville);
-            lesLieux.add(unLieu);
+            LesLieux.add(unLieu);
         }
-        return lesLieux;
+        return LesLieux;
     }    
 
     /**
@@ -99,7 +99,7 @@ public class DaoLieu {
      * @throws SQLException 
      */
     public static List<Lieu> selectAll(int cleTri, int ordreTri) throws SQLException {
-        List<Lieu> lesLieux = new ArrayList<Lieu>();
+        List<Lieu> LesLieux = new ArrayList<Lieu>();
         Lieu unLieu;
         ResultSet rs;
         PreparedStatement pstmt;
@@ -132,7 +132,7 @@ public class DaoLieu {
             String cdp = rs.getString("CDP");
             String ville = rs.getString("VILLE");
             unLieu = new Lieu(id, rue, cdp, ville);
-            lesLieux.add(unLieu);
+            LesLieux.add(unLieu);
         }
         return LesLieux;
     }
