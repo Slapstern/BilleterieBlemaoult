@@ -10,58 +10,90 @@ package modele.metier;
  * @author wquentel
  */
 public class Representation {
+    private int id;
     private String groupe;
     private String lieux;
     private String date;
     private String heureD;
     private String heureF;
+    private int placesDispo;
     
-    public Representation(String nom, String lieux, String date, String heureD, String heureF) {
-        this.groupe = groupe;
-        this.heureD = heureD;
-        this.heureF = heureF;
-        this.lieux=lieux;
+        
+    
+    
+    //constructeur
+    public Representation(int id,String date,String Lieu,String Groupe,String heureDebut,String heureFin,int placesDispo){
+    
+    this.id=id;
+    this.date=date;
+    this.lieux=Lieu;
+    this.groupe=Groupe;
+    this.heureD=heureDebut;
+    this.heureF=heureFin;
+    this.placesDispo=placesDispo;
+   
+    }
+
+    //toString
+    @Override
+    public String toString() {
+        return "<html>Groupe=" + groupe +"<br> date=" + date + "<br> Lieu=" + lieux + "<br> heureDebut=" + heureD + "<br> heureFin=" + heureF + "<br> placesDispo=" + placesDispo + "</html>";
+    }
+
+    public int getPlacesDispo() {
+        return placesDispo;
+    }
+
+    public void setPlacesDispo(int placesDispo) {
+        this.placesDispo = placesDispo;
+    }
+
+    //accesseur
+
+    public String getDate() {
+        return date;
+    }
+
+    public String getLieu() {
+        return lieux;
     }
 
     public String getGroupe() {
         return groupe;
     }
 
-    public void setGroupe(String groupe) {
-        this.groupe = groupe;
+    public String getHeureDebut() {
+        return heureD;
     }
 
-    public String getLieux() {
-        return lieux;
+    public String getHeureFin() {
+        return heureF;
     }
-
-    public void setLieux(String lieux) {
-        this.lieux = lieux;
-    }
-
-    public String getDate() {
-        return date;
-    }
+    
+    
+    
+    
+    
+    //mutateur
+ 
 
     public void setDate(String date) {
         this.date = date;
     }
 
-    public String getHeureD() {
-        return heureD;
+    public void setLieu(String lieu) {
+        this.lieux = lieu;
     }
 
-    public void setHeureD(String heureD) {
-        this.heureD = heureD;
+    public void setGroupe(String groupe) {
+        this.groupe = groupe;
     }
 
-    public String getHeureF() {
-        return heureF;
+    public void setHeureDebut(String heureDebut) {
+        this.heureD= heureDebut;
     }
 
-    public void setHeureF(String heureF) {
-        this.heureF = heureF;
+    public void setHeureFin(String heureFin) {
+        this.heureF= heureFin;
     }
-    
-    
 }
