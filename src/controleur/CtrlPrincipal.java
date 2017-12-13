@@ -18,13 +18,15 @@ public class CtrlPrincipal {
         this.ctrlLesRepresentations.getReserv().setVisible(true);
     }
     
-     public void quitterApplication()
-    {       
+     public void quitterApplication(){       
         // Confirmer avant de quitter
         int rep = JOptionPane.showConfirmDialog(null, "Quitter l'application\nEtes-vous sûr(e) ?", "Representation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (rep == JOptionPane.YES_OPTION) {
             // mettre fin à l'application
             System.exit(0);
+        }
+        if(rep == JOptionPane.NO_OPTION){
+        
         }
     }
     

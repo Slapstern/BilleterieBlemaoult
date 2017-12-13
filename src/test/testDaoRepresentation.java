@@ -25,29 +25,29 @@ public class testDaoRepresentation {
         }
         
         
-        System.out.println("***************************************************");
-        System.out.println("test 1 selectAll():");
-        System.out.println("***************************************************");
+        System.out.println("---------------------------------------------------");
+        System.out.println("test de la méthode selectAll():");
+        System.out.println("---------------------------------------------------");
         try {
             List<Representation> lesRepresentation = new ArrayList<Representation>();
             lesRepresentation = DaoRepresentation.selectAll();
             for(Representation uneRepresentation : lesRepresentation){
                 System.out.println(uneRepresentation.toString());
             }
-            System.out.println("test 1 réussi");
+            System.out.println("test de selectAll() réussi");
         } catch (SQLException ex) {
-            System.out.println("test 1 échoué");
+            System.out.println("test de selectAll() échoué");
         }
-        System.out.println("***************************************************");
-        System.out.println("test 2 selectRepresentationParGroupe():");
-        System.out.println("***************************************************");
+        System.out.println("---------------------------------------------------");
+        System.out.println("test de la méthode selectRepresentationParGroupe():");
+        System.out.println("---------------------------------------------------");
         try {
             Representation RecupParGroupe;
             RecupParGroupe = DaoRepresentation.selectRepresentationParGroupe("Boxty");
             System.out.println(RecupParGroupe.toString());
-            System.out.println("test 2 réussi");
+            System.out.println("test de selectRepresentationParGroupe() réussi");
         } catch (SQLException ex) {
-            System.out.println("test 2 échoué"+ex+"");
+            System.out.println("test de selectRepresentationParGroupe() échoué"+ex+"");
         }
         
     }

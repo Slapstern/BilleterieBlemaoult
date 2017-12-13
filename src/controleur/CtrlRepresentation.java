@@ -22,6 +22,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.JTable;
+import static javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE;
 import javax.swing.table.DefaultTableModel;
 import vue.VueRepresentation;
 
@@ -67,12 +68,12 @@ public class CtrlRepresentation implements WindowListener,MouseListener{
 
     @Override
     public void windowClosing(WindowEvent e) {
+        reserv.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         ctrlPrincipal.quitterApplication();
     }
 
     @Override
-    public void windowClosed(WindowEvent e) {
-        
+    public void windowClosed(WindowEvent e) {             
     }
 
     @Override
