@@ -12,10 +12,25 @@ import javax.swing.JOptionPane;
  * @author wquentel
  */
 public class CtrlPrincipal {
-     private CtrlRepresentation ctrlLesRepresentations;
+    private CtrlRepresentation ctrlLesRepresentations;
+    private CtrlLeMenu ctrlLeMenu;
+    private CtrlLaBilleterie ctrlLaBilleterie;
     
+    public void afficherLeMenu(){
+        this.ctrlLeMenu.getMenu().setVisible(true);
+        this.ctrlLesRepresentations.getReserv().setVisible(false);
+        this.ctrlLaBilleterie.getBilleterie().setVisible(false);
+    }
     public void afficherLesRepresentations() {
+        this.ctrlLeMenu.getMenu().setVisible(false);
         this.ctrlLesRepresentations.getReserv().setVisible(true);
+        this.ctrlLaBilleterie.getBilleterie().setVisible(false);
+    }
+    
+    public void afficherLaBilleterie() {
+        this.ctrlLeMenu.getMenu().setVisible(false);
+        this.ctrlLesRepresentations.getReserv().setVisible(true);
+        this.ctrlLaBilleterie.getBilleterie().setVisible(false);
     }
     
      public void quitterApplication(){       
@@ -28,6 +43,19 @@ public class CtrlPrincipal {
         if(rep == JOptionPane.NO_OPTION){
         
         }
+    }
+    public CtrlLeMenu getCtrlMenu(){
+        return ctrlLeMenu;
+    }
+    public void setCtrlMenu(CtrlLeMenu ctrlLeMenu){
+        this.ctrlLeMenu= ctrlLeMenu;
+    }
+    
+    public CtrlLaBilleterie getCtrlLaBilleterie(){
+        return ctrlLaBilleterie;
+    }
+    public void setCtrlLaBilleterie(CtrlLaBilleterie ctrlLaBilleterie){
+        this.ctrlLaBilleterie= ctrlLaBilleterie;
     }
     
     public CtrlRepresentation getCtrlRepresentation() {

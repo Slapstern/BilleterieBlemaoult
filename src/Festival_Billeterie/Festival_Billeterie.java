@@ -7,10 +7,15 @@ package Festival_Billeterie;
 
 import controleur.CtrlPrincipal;
 import controleur.CtrlRepresentation;
+import controleur.CtrlLeMenu;
+import controleur.CtrlLaBilleterie;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import vue.VueRepresentation;
+import vue.VueMenu;
+import vue.VueBilleterie;
 import modele.dao.Jdbc;
+
 
 /**
  *
@@ -22,10 +27,21 @@ public class Festival_Billeterie {
         try {
             Jdbc.getInstance().connecter();
             CtrlPrincipal leControleurPrincipal = new CtrlPrincipal();
-            VueRepresentation laVueLesRepresentation = new VueRepresentation();
+            
+            VueMenu laVueLeMenu = new VueMenu();
+            CtrlLeMenu leControleurLeMenu = new CtrlLeMenu(laVueLeMenu, leControleurPrincipal);
+            
+            VueRepresentation laVueLesRepresentation = new VueRepresentation();            
             CtrlRepresentation leControleurLesRepresentation = new CtrlRepresentation(laVueLesRepresentation, leControleurPrincipal);
-            leControleurPrincipal.setCtrlRepresentation(leControleurLesRepresentation);
-            laVueLesRepresentation.setVisible(true);
+            
+            VueBilleterie laVueLaBilleterie= new VueBilleterie();
+            CtrlLaBilleterie leControleurLaBilleterie = new CtrlLaBilleterie(laVueLaBilleterie, leControleurPrincipal);                  
+            
+            leControleurPrincipal.setCtrlRepresentation(leControleurLesRepresentation);            
+            leControleurPrincipal.setCtrlMenu(leControleurLeMenu);
+            leControleurPrincipal.setCtrlLaBilleterie(leControleurLaBilleterie);
+            
+            laVueLeMenu.setVisible(true);
         } catch (ClassNotFoundException ex) {
             JOptionPane.showMessageDialog(null, "Main - classe JDBC non trouvée");
         } catch (SQLException ex) {

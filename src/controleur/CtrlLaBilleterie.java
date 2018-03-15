@@ -24,23 +24,24 @@ import javax.swing.JLabel;
 import javax.swing.JTable;
 import static javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE;
 import javax.swing.table.DefaultTableModel;
-import vue.VueRepresentation;
+import vue.VueBilleterie;
+
 
 
 /**
  *
  * @author wquentel
  */
-public class CtrlRepresentation implements WindowListener,MouseListener{
-    private vue.VueRepresentation reserv;
+public class CtrlLaBilleterie implements WindowListener,MouseListener{
+    private vue.VueBilleterie billeterie;
     private ArrayList<Representation> lesRepresentations;
     private CtrlPrincipal ctrlPrincipal;
     
     
-    public CtrlRepresentation(vue.VueRepresentation vue, CtrlPrincipal ctrl){
-        this.reserv=vue;
-        this.reserv.addWindowListener(this);
-        this.reserv.getjTable1().addMouseListener(this);
+    public CtrlLaBilleterie(vue.VueBilleterie vue, CtrlPrincipal ctrl){
+        this.billeterie=vue;
+        this.billeterie.addWindowListener(this);
+        this.billeterie.getjTable1().addMouseListener(this);
         this.ctrlPrincipal = ctrl;
         afficheLesReserv();
     }
@@ -51,14 +52,14 @@ public class CtrlRepresentation implements WindowListener,MouseListener{
         } catch (SQLException ex) {
             Logger.getLogger(CtrlRepresentation.class.getName()).log(Level.SEVERE, null, ex);
         }
-        JTable jtable1 = this.reserv.getjTable1();
+        JTable jtable1 = this.billeterie.getjTable1();
         DefaultTableModel model = (DefaultTableModel) jtable1.getModel();
         
         for (Representation uneRepresentation : lesRepresentations){
             model.addRow(new Object[]{uneRepresentation.getGroupe()});
         }
         
-        this.reserv.setjTable1(jtable1);
+        this.billeterie.setjTable1(jtable1);
     }
     
     
@@ -68,7 +69,7 @@ public class CtrlRepresentation implements WindowListener,MouseListener{
 
     @Override
     public void windowClosing(WindowEvent e) {
-        reserv.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        billeterie.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         ctrlPrincipal.quitterApplication();
     }
 
@@ -93,8 +94,8 @@ public class CtrlRepresentation implements WindowListener,MouseListener{
     }
 
     public void mouseClicked(MouseEvent e) {
-        int row = reserv.getjTable1().getSelectedRow();
-        String groupeChoisis = (String) reserv.getjTable1().getValueAt(row, 0);
+        int row = billeterie.getjTable1().getSelectedRow();
+        String groupeChoisis = (String) billeterie.getjTable1().getValueAt(row, 0);
         String groupeChoisisRes = null;
         try {
             groupeChoisisRes = DaoRepresentation.selectRepresentationParGroupe(groupeChoisis).toString();
@@ -116,19 +117,16 @@ public class CtrlRepresentation implements WindowListener,MouseListener{
             System.out.println(currentTime);
             System.out.println(dateConcert);
             if(DaoRepresentation.selectRepresentationParGroupe(groupeChoisis).getPlacesDispo()==0 && dateConcert.before(currentTime)){
-                reserv.getjLabel3().setText("Le concert est passé et était complet");
+                billeterie.getjLabel3().setText("Le concert est passé");
             }else if(dateConcert.before(currentTime)){
-                reserv.getjLabel3().setText("Le concert est passé");
+                billeterie.getjLabel3().setText("Le concert est passé");
             }else if(DaoRepresentation.selectRepresentationParGroupe(groupeChoisis).getPlacesDispo()==0){
-                reserv.getjLabel3().setText("Il n'y a plus de places");
-            }
-            else{
-                reserv.getjLabel3().setText("");
+                billeterie.getjLabel3().setText("Il n'y a plus de places");
             }
         } catch (SQLException ex) {
             Logger.getLogger(CtrlRepresentation.class.getName()).log(Level.SEVERE, null, ex);
         }
-        reserv.getjLabel2().setText(groupeChoisisRes);
+        billeterie.getjLabel2().setText(groupeChoisisRes);
     }
 
     public void mousePressed(MouseEvent e) {
@@ -143,8 +141,8 @@ public class CtrlRepresentation implements WindowListener,MouseListener{
     public void mouseExited(MouseEvent e) {
     }
 
-    public VueRepresentation getReserv() {
-        return reserv;
+    public VueBilleterie getBilleterie() {
+        return billeterie;
     }
 
 

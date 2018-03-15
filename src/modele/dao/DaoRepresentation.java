@@ -57,8 +57,10 @@ public class DaoRepresentation {
         PreparedStatement pstmt;
         Jdbc jdbc = Jdbc.getInstance();
         // préparer la requête  heure_deb 	heure_fin
-        String requete = "SELECT R.id_rep AS id, date_rep, Lieu.nom AS Lieu, Groupe.nom AS Groupe,heure_deb,heure_fin, Lieu.capacite AS places_dispo FROM Representation R INNER JOIN Groupe ON R.id_groupe=Groupe.id INNER JOIN Lieu ON id_lieu= Lieu.id WHERE Groupe.nom LIKE '"+groupeChoix+"'";
+        String requete = "SELECT R.id_rep AS id, date_rep, Lieu.nom AS Lieu, Groupe.nom AS Groupe,heure_deb,heure_fin, Lieu.capacite AS places_dispo FROM Representation R INNER JOIN Groupe ON R.id_groupe=Groupe.id INNER JOIN Lieu ON id_lieu= Lieu.id WHERE Groupe.nom LIKE ?";
+                
         pstmt = jdbc.getConnexion().prepareStatement(requete);
+        pstmt.setString(1,groupeChoix);
         rs = pstmt.executeQuery();
         if (rs.next()) {
             int id = rs.getInt("id");
