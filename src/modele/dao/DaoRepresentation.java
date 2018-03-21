@@ -101,7 +101,5 @@ public class DaoRepresentation {
             int placesTotal = rs.getInt("places_total");
             uneRepresentation = new Representation(id, date, Lieu,Groupe,heureDebut,heureFin,placesDispo, placesTotal);
         }
-    }
-      
-    
+    }    
 }
