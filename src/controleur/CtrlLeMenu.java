@@ -23,6 +23,7 @@ public class CtrlLeMenu implements ActionListener,WindowListener {
     public CtrlLeMenu(vue.VueMenu vue, CtrlPrincipal ctrl){
         this.leMenu=vue;
         this.ctrlPrincipal = ctrl;
+        this.leMenu.addWindowListener(this);
         leMenu.getjBoutonBilleterie().addActionListener(this);
         leMenu.getjBoutonRepresentation().addActionListener(this);
     }
@@ -37,38 +38,30 @@ public class CtrlLeMenu implements ActionListener,WindowListener {
 
     @Override
     public void windowOpened(WindowEvent we) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void windowClosing(WindowEvent we) {
-        leMenu.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+    public void windowClosing(WindowEvent we) {leMenu.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         ctrlPrincipal.quitterApplication();
     }
-
     @Override
-    public void windowClosed(WindowEvent we) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void windowClosed(WindowEvent e) {             
     }
 
     @Override
-    public void windowIconified(WindowEvent we) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void windowIconified(WindowEvent e) {
     }
 
     @Override
-    public void windowDeiconified(WindowEvent we) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void windowDeiconified(WindowEvent e) {
     }
 
     @Override
-    public void windowActivated(WindowEvent we) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void windowActivated(WindowEvent e) {
     }
 
     @Override
-    public void windowDeactivated(WindowEvent we) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void windowDeactivated(WindowEvent e) {
     }
 
     public VueMenu getMenu() {

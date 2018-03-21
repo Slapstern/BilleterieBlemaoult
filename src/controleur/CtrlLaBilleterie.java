@@ -32,18 +32,20 @@ import vue.VueBilleterie;
  *
  * @author wquentel
  */
-public class CtrlLaBilleterie implements WindowListener,MouseListener{
+public class CtrlLaBilleterie implements WindowListener,MouseListener,ActionListener{
     private vue.VueBilleterie billeterie;
     private ArrayList<Representation> lesRepresentations;
     private CtrlPrincipal ctrlPrincipal;
-    
-    
+    int nbPlaceDispo;
+    String nomGroupe;
     public CtrlLaBilleterie(vue.VueBilleterie vue, CtrlPrincipal ctrl){
         this.billeterie=vue;
         this.billeterie.addWindowListener(this);
         this.billeterie.getjTable1().addMouseListener(this);
         this.ctrlPrincipal = ctrl;
         afficheLesReserv();
+        billeterie.getJButtonCommander().addActionListener(this);
+        billeterie.getJButtonRetour().addActionListener(this);
     }
     
     private void afficheLesReserv() {
@@ -60,6 +62,37 @@ public class CtrlLaBilleterie implements WindowListener,MouseListener{
         }
         
         this.billeterie.setjTable1(jtable1);
+    }
+    
+    public void actionPerformed(ActionEvent e) {
+        int nbPlace = 0;
+        if (e.getSource() == billeterie.getJButtonCommander()) {
+            try{
+                nbPlace = Integer.parseInt(billeterie.getJTextFieldNbPlace().getText());
+                billeterie.getJTextFieldNbPlace().setText("");
+            }
+            catch(NumberFormatException a){
+                billeterie.getjLabelCommande().setText("entrez un nombre");
+                billeterie.getJTextFieldNbPlace().setText("");
+            }
+            if (nbPlace<0){
+                billeterie.getjLabelCommande().setText("nombre<0");
+            }
+            else if(nbPlace>nbPlaceDispo){
+                billeterie.getjLabelCommande().setText("Pas assez de place");
+            }
+            else{
+                try {
+                    DaoRepresentation.selectRepresentationParGroupe(nomGroupe).setPlacesDispo(nbPlace);
+                } catch (SQLException ex) {
+                    Logger.getLogger(CtrlLaBilleterie.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                billeterie.getjLabelCommande().setText("commande de "+nbPlace+" places");
+            }
+            }
+        if (e.getSource() == billeterie.getJButtonRetour()) {
+             ctrlPrincipal.afficherLeMenu() ;
+        }
     }
     
     
@@ -97,6 +130,7 @@ public class CtrlLaBilleterie implements WindowListener,MouseListener{
         int row = billeterie.getjTable1().getSelectedRow();
         String groupeChoisis = (String) billeterie.getjTable1().getValueAt(row, 0);
         String groupeChoisisRes = null;
+        nomGroupe=groupeChoisis;
         try {
             groupeChoisisRes = DaoRepresentation.selectRepresentationParGroupe(groupeChoisis).toString();
         } catch (SQLException ex) {
@@ -116,12 +150,17 @@ public class CtrlLaBilleterie implements WindowListener,MouseListener{
             System.out.println(annee + " " +mois + " " +jour);
             System.out.println(currentTime);
             System.out.println(dateConcert);
-            if(DaoRepresentation.selectRepresentationParGroupe(groupeChoisis).getPlacesDispo()==0 && dateConcert.before(currentTime)){
+            nbPlaceDispo=DaoRepresentation.selectRepresentationParGroupe(groupeChoisis).getPlacesDispo();
+            
+            if(nbPlaceDispo==0 && dateConcert.before(currentTime)){
                 billeterie.getjLabel3().setText("Le concert est passé");
             }else if(dateConcert.before(currentTime)){
                 billeterie.getjLabel3().setText("Le concert est passé");
             }else if(DaoRepresentation.selectRepresentationParGroupe(groupeChoisis).getPlacesDispo()==0){
                 billeterie.getjLabel3().setText("Il n'y a plus de places");
+            }
+            else{
+                billeterie.getjLabel3().setText("");
             }
         } catch (SQLException ex) {
             Logger.getLogger(CtrlRepresentation.class.getName()).log(Level.SEVERE, null, ex);
@@ -144,13 +183,4 @@ public class CtrlLaBilleterie implements WindowListener,MouseListener{
     public VueBilleterie getBilleterie() {
         return billeterie;
     }
-
-
-    public void actionPerformed(ActionEvent ae) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    
-
-    
 }

@@ -17,12 +17,13 @@ public class Representation {
     private String heureD;
     private String heureF;
     private int placesDispo;
+    private int placesTotal;
     
         
     
     
     //constructeur
-    public Representation(int id,String date,String Lieu,String Groupe,String heureDebut,String heureFin,int placesDispo){
+    public Representation(int id,String date,String Lieu,String Groupe,String heureDebut,String heureFin,int placesDispo, int placesTotal){
     
     this.id=id;
     this.date=date;
@@ -31,13 +32,13 @@ public class Representation {
     this.heureD=heureDebut;
     this.heureF=heureFin;
     this.placesDispo=placesDispo;
-   
+    this.placesTotal=placesTotal;
     }
 
     //toString
     @Override
     public String toString() {
-        return "<html>Groupe=" + groupe +"<br> date=" + date + "<br> Lieu=" + lieux + "<br> heureDebut=" + heureD + "<br> heureFin=" + heureF + "<br> placesDispo=" + placesDispo + "</html>";
+        return "<html>Groupe=" + groupe +"<br> date=" + date + "<br> Lieu=" + lieux + "<br> heureDebut=" + heureD + "<br> heureFin=" + heureF + "<br> placesDispo=" + placesDispo + "/"+placesTotal+"</html>";
     }
 
     public int getPlacesDispo() {

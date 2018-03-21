@@ -31,7 +31,7 @@ import vue.VueRepresentation;
  *
  * @author wquentel
  */
-public class CtrlRepresentation implements WindowListener,MouseListener{
+public class CtrlRepresentation implements WindowListener,MouseListener, ActionListener{
     private vue.VueRepresentation reserv;
     private ArrayList<Representation> lesRepresentations;
     private CtrlPrincipal ctrlPrincipal;
@@ -43,6 +43,8 @@ public class CtrlRepresentation implements WindowListener,MouseListener{
         this.reserv.getjTable1().addMouseListener(this);
         this.ctrlPrincipal = ctrl;
         afficheLesReserv();
+        reserv.getJButtonCommander().addActionListener(this);
+        reserv.getJButtonRetour().addActionListener(this);
     }
     
     private void afficheLesReserv() {
@@ -61,6 +63,14 @@ public class CtrlRepresentation implements WindowListener,MouseListener{
         this.reserv.setjTable1(jtable1);
     }
     
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == reserv.getJButtonCommander()) {
+             ctrlPrincipal.afficherLaBilleterie();
+        }
+        if (e.getSource() == reserv.getJButtonRetour()) {
+             ctrlPrincipal.afficherLeMenu() ;
+        }
+    }
     
     @Override
     public void windowOpened(WindowEvent e) {
@@ -145,14 +155,5 @@ public class CtrlRepresentation implements WindowListener,MouseListener{
 
     public VueRepresentation getReserv() {
         return reserv;
-    }
-
-
-    public void actionPerformed(ActionEvent ae) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    
-
-    
+    }   
 }

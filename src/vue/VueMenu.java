@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
  *
  * @author wquentel
  */
-public class VueMenu extends javax.swing.JFrame {
+public class VueMenu extends javax.swing.JFrame{
     private VueMenu vueMenu= this;
     /**
      * Creates new form VueMenu1

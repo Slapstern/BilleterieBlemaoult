@@ -33,7 +33,7 @@ public class testRepresentation {
         System.out.println("---------------------------------------------------");
         System.out.println("test de création d'un objet de type representation:");
         System.out.println("---------------------------------------------------");
-        Representation laRepresentation = new Representation(1,"2018-06-11","Parc Hellfest, Clisson ","Hellfest 2018","14:00:00","23:00:00",5000);
+        Representation laRepresentation = new Representation(1,"2018-06-11","Parc Hellfest, Clisson ","Hellfest 2018","14:00:00","23:00:00",5000,5000);
         System.out.println(laRepresentation.toString());
         System.out.println("test réussi");
     }

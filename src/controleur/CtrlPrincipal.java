@@ -29,8 +29,8 @@ public class CtrlPrincipal {
     
     public void afficherLaBilleterie() {
         this.ctrlLeMenu.getMenu().setVisible(false);
-        this.ctrlLesRepresentations.getReserv().setVisible(true);
-        this.ctrlLaBilleterie.getBilleterie().setVisible(false);
+        this.ctrlLesRepresentations.getReserv().setVisible(false);
+        this.ctrlLaBilleterie.getBilleterie().setVisible(true);
     }
     
      public void quitterApplication(){       
