@@ -84,12 +84,52 @@ public class CtrlLaBilleterie implements WindowListener,MouseListener,ActionList
             else{
                 try {
                     DaoRepresentation.selectRepresentationParGroupe(nomGroupe).setPlacesDispo(nbPlace);
-                } catch (SQLException ex) {
+                }catch (SQLException ex) {
                     Logger.getLogger(CtrlLaBilleterie.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 billeterie.getjLabelCommande().setText("commande de "+nbPlace+" places");
+                DaoRepresentation.ventePlace(nomGroupe,nbPlace);
+
+                int row = billeterie.getjTable1().getSelectedRow();
+                String groupeChoisis = (String) billeterie.getjTable1().getValueAt(row, 0);
+                String groupeChoisisRes = null;
+                try {
+                    groupeChoisisRes = DaoRepresentation.selectRepresentationParGroupe(groupeChoisis).toString();
+                } catch (SQLException ex) {
+                    Logger.getLogger(CtrlRepresentation.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                try {
+                    Date currentTime = new Date();
+                    String dateDebut = DaoRepresentation.selectRepresentationParGroupe(groupeChoisis).getDate();
+                    String heureDebut = DaoRepresentation.selectRepresentationParGroupe(groupeChoisis).getHeureDebut();
+                    int annee = Integer.parseInt(dateDebut.substring(0,4));
+                    int mois = Integer.parseInt(dateDebut.substring(5,7));
+                    int jour = Integer.parseInt(dateDebut.substring(8,10));
+                    int heure = Integer.parseInt(heureDebut.substring(0,2));
+                    int minutes = Integer.parseInt(heureDebut.substring(3,5));
+            
+                    Date dateConcert = new Date(annee-1900, mois, jour,heure,minutes);
+                    System.out.println(annee + " " +mois + " " +jour);
+                    System.out.println(currentTime);
+                    System.out.println(dateConcert);
+                    nbPlaceDispo=DaoRepresentation.selectRepresentationParGroupe(groupeChoisis).getPlacesDispo();
+            
+                    if(nbPlaceDispo==0 && dateConcert.before(currentTime)){
+                        billeterie.getjLabel3().setText("Le concert est passé");
+                    }else if(dateConcert.before(currentTime)){
+                        billeterie.getjLabel3().setText("Le concert est passé");
+                    }else if(DaoRepresentation.selectRepresentationParGroupe(groupeChoisis).getPlacesDispo()==0){
+                        billeterie.getjLabel3().setText("Il n'y a plus de places");
+                    }   
+                    else{
+                        billeterie.getjLabel3().setText("");
+                }
+                } catch (SQLException ex) {
+                    Logger.getLogger(CtrlRepresentation.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                billeterie.getjLabel2().setText(groupeChoisisRes);
             }
-            }
+        }
         if (e.getSource() == billeterie.getJButtonRetour()) {
              ctrlPrincipal.afficherLeMenu() ;
         }
