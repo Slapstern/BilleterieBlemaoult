@@ -78,19 +78,17 @@ public class DaoRepresentation {
         }
         return uneRepresentation;
     }
-    public static void UpdateRepresentationParGroupe(String groupeChoix,int place) throws SQLException {
+    public static void ventePlace(String groupeChoix,int place) throws SQLException {
         Representation uneRepresentation = null;
         ResultSet rs;
         PreparedStatement pstmt;
         Jdbc jdbc = Jdbc.getInstance();
         // préparer la requête  heure_deb 	heure_fin
-        String requete = "UPDATE `Representation` SET `nbPlaceDispo`=? " 
-                +"WHERE INNER JOIN Groupe ON R.id_groupe=Groupe.id INNER JOIN Lieu ON R.id_lieu= Lieu.id "
-                +"AND Groupe.nom LIKE ?";
+        String requete = "UPDATE `Representation` SET `nbPlaceDispo`=nbPlaceDispo -"+ place +" WHERE INNER JOIN Groupe ON R.id_groupe=Groupe.id "
+        +"INNER JOIN Lieu ON R.id_lieu= Lieu.id WHERE Groupe.nom LIKE ?";
                 
         pstmt = jdbc.getConnexion().prepareStatement(requete);
-        pstmt.setInt(1,place);
-        pstmt.setString(2,groupeChoix);
+        pstmt.setString(1,groupeChoix);
         rs = pstmt.executeQuery();
         if (rs.next()) {
             int id = rs.getInt("id");
