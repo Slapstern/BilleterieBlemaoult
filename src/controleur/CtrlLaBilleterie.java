@@ -88,7 +88,11 @@ public class CtrlLaBilleterie implements WindowListener,MouseListener,ActionList
                     Logger.getLogger(CtrlLaBilleterie.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 billeterie.getjLabelCommande().setText("commande de "+nbPlace+" places");
-                DaoRepresentation.ventePlace(nomGroupe,nbPlace);
+                try {
+                    DaoRepresentation.ventePlace(nomGroupe,nbPlace);
+                } catch (SQLException ex) {
+                    Logger.getLogger(CtrlLaBilleterie.class.getName()).log(Level.SEVERE, null, ex);
+                }
 
                 int row = billeterie.getjTable1().getSelectedRow();
                 String groupeChoisis = (String) billeterie.getjTable1().getValueAt(row, 0);
