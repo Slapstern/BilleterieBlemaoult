@@ -48,9 +48,11 @@ public class Representation {
     public void setPlacesDispo(int placesDispo) {
         this.placesDispo = placesDispo;
     }
-
+    
     //accesseur
-
+    public int getId(){
+        return id;
+    }
     public String getDate() {
         return date;
     }

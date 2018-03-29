@@ -15,8 +15,16 @@ public class CtrlPrincipal {
     private CtrlRepresentation ctrlLesRepresentations;
     private CtrlLeMenu ctrlLeMenu;
     private CtrlLaBilleterie ctrlLaBilleterie;
+    private CtrlConnection ctrlConnection;
     
+    public void afficherConnection(){
+        this.ctrlConnection.getConnection().setVisible(true);
+        this.ctrlLeMenu.getMenu().setVisible(false);
+        this.ctrlLesRepresentations.getReserv().setVisible(false);
+        this.ctrlLaBilleterie.getBilleterie().setVisible(false);
+    }
     public void afficherLeMenu(){
+        this.ctrlConnection.getConnection().setVisible(false);
         this.ctrlLeMenu.getMenu().setVisible(true);
         this.ctrlLesRepresentations.getReserv().setVisible(false);
         this.ctrlLaBilleterie.getBilleterie().setVisible(false);
@@ -44,6 +52,9 @@ public class CtrlPrincipal {
         
         }
     }
+    public CtrlConnection getCtrlConnection(){
+        return ctrlConnection;
+    }
     public CtrlLeMenu getCtrlMenu(){
         return ctrlLeMenu;
     }
@@ -54,6 +65,11 @@ public class CtrlPrincipal {
     public CtrlLaBilleterie getCtrlLaBilleterie(){
         return ctrlLaBilleterie;
     }
+    
+    public void setCtrlLaConnection(CtrlConnection ctrlConnection){
+    this.ctrlConnection=ctrlConnection;
+    }
+    
     public void setCtrlLaBilleterie(CtrlLaBilleterie ctrlLaBilleterie){
         this.ctrlLaBilleterie= ctrlLaBilleterie;
     }

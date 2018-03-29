@@ -13,6 +13,7 @@ import modele.dao.DaoRepresentation;
 import modele.metier.Representation;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import static java.lang.Integer.parseInt;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -37,7 +38,9 @@ public class CtrlLaBilleterie implements WindowListener,MouseListener,ActionList
     private ArrayList<Representation> lesRepresentations;
     private CtrlPrincipal ctrlPrincipal;
     int nbPlaceDispo;
+    int idRepresentation;
     String nomGroupe;
+    Boolean concertDispo;
     public CtrlLaBilleterie(vue.VueBilleterie vue, CtrlPrincipal ctrl){
         this.billeterie=vue;
         this.billeterie.addWindowListener(this);
@@ -46,6 +49,7 @@ public class CtrlLaBilleterie implements WindowListener,MouseListener,ActionList
         afficheLesReserv();
         billeterie.getJButtonCommander().addActionListener(this);
         billeterie.getJButtonRetour().addActionListener(this);
+        billeterie.getJButtonCommander().setEnabled(false);
     }
     
     private void afficheLesReserv() {
@@ -82,14 +86,9 @@ public class CtrlLaBilleterie implements WindowListener,MouseListener,ActionList
                 billeterie.getjLabelCommande().setText("Pas assez de place");
             }
             else{
-                try {
-                    DaoRepresentation.selectRepresentationParGroupe(nomGroupe).setPlacesDispo(nbPlace);
-                }catch (SQLException ex) {
-                    Logger.getLogger(CtrlLaBilleterie.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                billeterie.getjLabelCommande().setText("commande de "+nbPlace+" places");
-                try {
-                    DaoRepresentation.ventePlace(nomGroupe,nbPlace);
+                try{
+                    DaoRepresentation.ventePlace(idRepresentation,nbPlace);
+                    billeterie.getjLabelCommande().setText("Commande de "+nbPlace+" place(s)");
                 } catch (SQLException ex) {
                     Logger.getLogger(CtrlLaBilleterie.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -116,18 +115,7 @@ public class CtrlLaBilleterie implements WindowListener,MouseListener,ActionList
                     System.out.println(annee + " " +mois + " " +jour);
                     System.out.println(currentTime);
                     System.out.println(dateConcert);
-                    nbPlaceDispo=DaoRepresentation.selectRepresentationParGroupe(groupeChoisis).getPlacesDispo();
-            
-                    if(nbPlaceDispo==0 && dateConcert.before(currentTime)){
-                        billeterie.getjLabel3().setText("Le concert est passé");
-                    }else if(dateConcert.before(currentTime)){
-                        billeterie.getjLabel3().setText("Le concert est passé");
-                    }else if(DaoRepresentation.selectRepresentationParGroupe(groupeChoisis).getPlacesDispo()==0){
-                        billeterie.getjLabel3().setText("Il n'y a plus de places");
-                    }   
-                    else{
-                        billeterie.getjLabel3().setText("");
-                }
+                    billeterie.getjLabel3().setText("");
                 } catch (SQLException ex) {
                     Logger.getLogger(CtrlRepresentation.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -195,16 +183,23 @@ public class CtrlLaBilleterie implements WindowListener,MouseListener,ActionList
             System.out.println(currentTime);
             System.out.println(dateConcert);
             nbPlaceDispo=DaoRepresentation.selectRepresentationParGroupe(groupeChoisis).getPlacesDispo();
+            idRepresentation=DaoRepresentation.selectRepresentationParGroupe(groupeChoisis).getId();
+            nbPlaceDispo=DaoRepresentation.selectRepresentationParGroupe(groupeChoisis).getPlacesDispo();
+            concertDispo=dateConcert.before(currentTime);
             
-            if(nbPlaceDispo==0 && dateConcert.before(currentTime)){
+            if(nbPlaceDispo==0 && concertDispo){
                 billeterie.getjLabel3().setText("Le concert est passé");
-            }else if(dateConcert.before(currentTime)){
+                billeterie.getJButtonCommander().setEnabled(false);
+            }else if(concertDispo){
                 billeterie.getjLabel3().setText("Le concert est passé");
+                billeterie.getJButtonCommander().setEnabled(false);
             }else if(DaoRepresentation.selectRepresentationParGroupe(groupeChoisis).getPlacesDispo()==0){
                 billeterie.getjLabel3().setText("Il n'y a plus de places");
+                billeterie.getJButtonCommander().setEnabled(false);
             }
             else{
                 billeterie.getjLabel3().setText("");
+                billeterie.getJButtonCommander().setEnabled(true);
             }
         } catch (SQLException ex) {
             Logger.getLogger(CtrlRepresentation.class.getName()).log(Level.SEVERE, null, ex);

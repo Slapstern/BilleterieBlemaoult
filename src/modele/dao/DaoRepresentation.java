@@ -78,28 +78,14 @@ public class DaoRepresentation {
         }
         return uneRepresentation;
     }
-    public static void ventePlace(String groupeChoix,int place) throws SQLException {
+    public static void ventePlace(int idRepresentation,int place) throws SQLException {
         Representation uneRepresentation = null;
         ResultSet rs;
         PreparedStatement pstmt;
         Jdbc jdbc = Jdbc.getInstance();
         // préparer la requête  heure_deb 	heure_fin
-        String requete = "UPDATE `Representation` SET `nbPlaceDispo`=nbPlaceDispo -"+ place +" WHERE INNER JOIN Groupe ON R.id_groupe=Groupe.id "
-        +"INNER JOIN Lieu ON R.id_lieu= Lieu.id WHERE Groupe.nom LIKE ?";
-                
+        String requete = "UPDATE `Representation` SET `nbPlaceDispo` = `nbPlaceDispo`-"+place+" WHERE `Representation`.`id_rep` ="+idRepresentation+";";               
         pstmt = jdbc.getConnexion().prepareStatement(requete);
-        pstmt.setString(1,groupeChoix);
-        rs = pstmt.executeQuery();
-        if (rs.next()) {
-            int id = rs.getInt("id");
-            String date = rs.getString("date_rep");
-            String Lieu = rs.getString("Lieu");
-            String Groupe = rs.getString("Groupe");
-            String heureDebut = rs.getString("heure_deb");
-            String heureFin = rs.getString("heure_fin");
-            int placesDispo = rs.getInt("places_dispo");
-            int placesTotal = rs.getInt("places_total");
-            uneRepresentation = new Representation(id, date, Lieu,Groupe,heureDebut,heureFin,placesDispo, placesTotal);
-        }
-    }    
+        pstmt.executeUpdate();
+    }
 }
