@@ -14,10 +14,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import modele.dao.DaoUtilisateur;
+import modele.metier.Utilisateur;
 import vue.VueConnection;
 
 /**
@@ -105,29 +108,16 @@ public class CtrlConnection implements WindowListener,ActionListener{
             try {
                 String identifiant = this.connection.getJTextFieldUtil().getText();
                 String mdp = this.connection.getJTextFieldMdp().getText();
-                
-                MessageDigest md = MessageDigest.getInstance("MD5");
-                md.update(identifiant.getBytes());
-                byte[] digest = md.digest();
-                StringBuffer sb = new StringBuffer();
-                for (byte b : digest) {
-                    sb.append(String.format("%02x", b & 0xff));
-                }
-                
-                MessageDigest md2 = MessageDigest.getInstance("MD5");
-                md2.update(mdp.getBytes());
-                byte[] digest2 = md2.digest();
-                StringBuffer sb2 = new StringBuffer();
-                for (byte b : digest2) {
-                    sb2.append(String.format("%02x", b & 0xff));
-                }
-                
-                if(prop.getProperty("identifiant").equals(sb.toString()) && prop.getProperty("mdp").equals(sb2.toString())){
+                identifiant=Utilisateur.md5Converter(identifiant);
+                mdp= Utilisateur.md5Converter(mdp);
+                Utilisateur unUtilisateur= new Utilisateur(identifiant,mdp);
+                System.out.println("id: "+unUtilisateur.getIdentifiant()+" mdp: "+unUtilisateur.getMdp());
+                if(DaoUtilisateur.verifConnection(unUtilisateur)){
                     ctrlPrincipal.afficherLeMenu();
                 }else {
                     JOptionPane.showMessageDialog(null, "Mauvais identifiants !");
                 }                
-            } catch (NoSuchAlgorithmException ex) {
+            } catch (SQLException ex) {
                 Logger.getLogger(CtrlConnection.class.getName()).log(Level.SEVERE, null, ex);
             }
         }

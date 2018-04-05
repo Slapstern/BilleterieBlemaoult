@@ -182,7 +182,6 @@ public class CtrlLaBilleterie implements WindowListener,MouseListener,ActionList
             System.out.println(annee + " " +mois + " " +jour);
             System.out.println(currentTime);
             System.out.println(dateConcert);
-            nbPlaceDispo=DaoRepresentation.selectRepresentationParGroupe(groupeChoisis).getPlacesDispo();
             idRepresentation=DaoRepresentation.selectRepresentationParGroupe(groupeChoisis).getId();
             nbPlaceDispo=DaoRepresentation.selectRepresentationParGroupe(groupeChoisis).getPlacesDispo();
             concertDispo=dateConcert.before(currentTime);
@@ -193,7 +192,7 @@ public class CtrlLaBilleterie implements WindowListener,MouseListener,ActionList
             }else if(concertDispo){
                 billeterie.getjLabel3().setText("Le concert est passé");
                 billeterie.getJButtonCommander().setEnabled(false);
-            }else if(DaoRepresentation.selectRepresentationParGroupe(groupeChoisis).getPlacesDispo()==0){
+            }else if(nbPlaceDispo==0){
                 billeterie.getjLabel3().setText("Il n'y a plus de places");
                 billeterie.getJButtonCommander().setEnabled(false);
             }
