@@ -25,7 +25,7 @@ import vue.VueConnection;
 
 /**
  *
- * @author tberthome
+ * @author wquentel
  */
 public class CtrlConnection implements WindowListener,ActionListener{
     /*
