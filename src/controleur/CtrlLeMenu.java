@@ -28,11 +28,11 @@ public class CtrlLeMenu implements ActionListener,WindowListener {
         leMenu.getjBoutonRepresentation().addActionListener(this);
     }
      public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == leMenu.getjBoutonBilleterie()) {
-             ctrlPrincipal.afficherLaBilleterie();
+        if (e.getSource() == leMenu.getjBoutonBilleterie()) { 
+            ctrlPrincipal.afficherLesRepresentations() ;
         }
         if (e.getSource() == leMenu.getjBoutonRepresentation()) {
-             ctrlPrincipal.afficherLesRepresentations() ;
+             ctrlPrincipal.afficherLaBilleterie();
         }
     }
 
