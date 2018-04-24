@@ -74,7 +74,7 @@ public class DaoRepresentation {
             String heureFin = rs.getString("heure_fin");
             int placesDispo = rs.getInt("places_dispo");
             int placesTotal = rs.getInt("places_total");
-            //uneRepresentation = new Representation(id, date, Lieu,Groupe,heureDebut,heureFin,placesDispo, placesTotal);
+            uneRepresentation = new Representation(id, date, Lieu,Groupe,heureDebut,heureFin,placesDispo, placesTotal);
         }
         return uneRepresentation;
     }
@@ -86,6 +86,6 @@ public class DaoRepresentation {
         // préparer la requête  heure_deb 	heure_fin
         String requete = "UPDATE `Representation` SET `nbPlaceDispo` = `nbPlaceDispo`-"+place+" WHERE `Representation`.`id_rep` ="+idRepresentation+";";               
         pstmt = jdbc.getConnexion().prepareStatement(requete);
-        //pstmt.executeUpdate();
+        pstmt.executeUpdate();
     }
 }

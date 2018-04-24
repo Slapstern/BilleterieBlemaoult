@@ -39,13 +39,13 @@ public class VueConnection extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Connection");
+        jLabel1.setText("Connexion");
 
         jLabel2.setText("Utilisateur");
 
         jLabel3.setText("Mot de passe");
 
-        jButtonConnection.setText("Connection");
+        jButtonConnection.setText("Connexion");
         jButtonConnection.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonConnectionActionPerformed(evt);
@@ -72,7 +72,7 @@ public class VueConnection extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jTextFieldMdp))))
-                .addContainerGap(152, Short.MAX_VALUE))
+                .addContainerGap(158, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

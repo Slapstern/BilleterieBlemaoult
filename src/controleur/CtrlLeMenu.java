@@ -12,27 +12,29 @@ import java.awt.event.WindowListener;
 import static javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE;
 import vue.VueMenu;
 
-
 /**
  *
  * @author wquentel
  */
-public class CtrlLeMenu implements ActionListener,WindowListener {
+public class CtrlLeMenu implements ActionListener, WindowListener {
+
     private vue.VueMenu leMenu;
     private CtrlPrincipal ctrlPrincipal;
-    public CtrlLeMenu(vue.VueMenu vue, CtrlPrincipal ctrl){
-        this.leMenu=vue;
+
+    public CtrlLeMenu(vue.VueMenu vue, CtrlPrincipal ctrl) {
+        this.leMenu = vue;
         this.ctrlPrincipal = ctrl;
         this.leMenu.addWindowListener(this);
         leMenu.getjBoutonBilleterie().addActionListener(this);
         leMenu.getjBoutonRepresentation().addActionListener(this);
     }
-     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == leMenu.getjBoutonBilleterie()) { 
-            ctrlPrincipal.afficherLesRepresentations() ;
+
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == leMenu.getjBoutonBilleterie()) {
+            ctrlPrincipal.afficherLaBilleterie();
         }
         if (e.getSource() == leMenu.getjBoutonRepresentation()) {
-             ctrlPrincipal.afficherLaBilleterie();
+            ctrlPrincipal.afficherLesRepresentations();
         }
     }
 
@@ -41,11 +43,13 @@ public class CtrlLeMenu implements ActionListener,WindowListener {
     }
 
     @Override
-    public void windowClosing(WindowEvent we) {leMenu.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+    public void windowClosing(WindowEvent we) {
+        leMenu.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         ctrlPrincipal.quitterApplication();
     }
+
     @Override
-    public void windowClosed(WindowEvent e) {             
+    public void windowClosed(WindowEvent e) {
     }
 
     @Override
@@ -67,5 +71,5 @@ public class CtrlLeMenu implements ActionListener,WindowListener {
     public VueMenu getMenu() {
         return leMenu;
     }
-    
+
 }
